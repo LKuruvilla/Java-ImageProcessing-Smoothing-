@@ -174,7 +174,10 @@ class ImageProcess {
 
 public class ImageProcessingProject {
     
+
+    
     public static void main (String[] args){
+        final long startTime = System.currentTimeMillis();
         ImageProcess imageProcess = null;  
         BufferedImage current = null;
         try
@@ -188,6 +191,11 @@ public class ImageProcessingProject {
         }
         
         imageProcess.processFile();
+        final long duration = System.currentTimeMillis() - startTime;
+        
+        System.out.println("Program duration in mili seconds: "+ duration);
+        
+        
     }
       
     
