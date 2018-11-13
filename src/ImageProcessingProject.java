@@ -3,6 +3,7 @@
 
 
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +19,11 @@ class ImageProcess {
     public int[] smallSquare;
     public int width, height;
     public int newpixelvalue;
+    Color c;
+    int red, green, blue;
+    int[] r;
+    int []g;
+    int []b;
     
     public ImageProcess(BufferedImage input){
         current = input;
@@ -47,6 +53,7 @@ class ImageProcess {
     
     public void processFile()
     {
+        
         for(int i =0; i<width; i++)
             
         {
@@ -56,6 +63,8 @@ class ImageProcess {
                 //top left corner
                 if(i==0 &&j==0)
                 { 
+                    c = new Color(current.getRGB(i, i));
+                    
                     smallSquare[0] = current.getRGB(i, j);
                     smallSquare[1] = current.getRGB(i, j+1);
                     smallSquare[2] = current.getRGB(i+1, j+1);
@@ -159,11 +168,23 @@ class ImageProcess {
             }
         }
         
-        saveFile();
+        
         
     }
     
     public int getAverage(int[] array){
+        int size = array.length;
+        r = new int[size];
+        g = new int[size];
+        b = new int[size];
+        
+        for(int i =0; i<size; i++)
+        {
+            
+            r[i] = 
+        }
+        
+        
         int total=0;
         for(int n:array)
             total = total+n;
@@ -182,88 +203,92 @@ public class ImageProcessingProject {
 
     
     public static void main (String[] args){
-        final long startTime = System.currentTimeMillis();
-       // ImageProcess imageProcess = null;  
+       
+        ImageProcess imageProcess = null;  
         BufferedImage current = null;
         try
         {
             current = ImageIO.read(new File("old.bmp"));
-          //  imageProcess = new ImageProcess(current);
+             
+            
             
         }catch (Exception e)
         {
             System.out.println(e.getLocalizedMessage());
         }
+        final long startTime = System.currentTimeMillis();
+        imageProcess = new ImageProcess(current);
         
-      //  imageProcess.processFile();
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        imageProcess.processFile();
+        final long duration = System.currentTimeMillis() - startTime;
+        imageProcess.saveFile();
+     //   ExecutorService executor = Executors.newFixedThreadPool(4);
         
-        int height = current.getHeight();
-        
-        int width = current.getWidth();
+//        int height = current.getHeight();
+//        
+//        int width = current.getWidth();
        
-        myThread.current = current;
-        myThread.redrawn = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-        int division =8;
+//        myThread.current = current;
+//        myThread.redrawn = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+//        int division =2;
         
-        int hfactor, wfactor;
-        
-        
-            hfactor = height/division;
-        
-            wfactor = width/division;
-        
-            
-        
-        int heightStartIndex, heightEndIndex, widthStartIndex, widthEndIndex;
-        
-//        Runnable run = new mThread(0, width, 0, height);
-//                
-//                executor.execute(run);
+//        int hfactor, wfactor;
+//        
+//        
+//            hfactor = height/division;
+//        
+//            wfactor = width/division;
+//        
+//            
+//        
+//        int heightStartIndex, heightEndIndex, widthStartIndex, widthEndIndex;
+//        
+//        Runnable run = new myThread(0, width, 0, height);
+//        executor.execute(run);
       
         
-        for (int i =0; i<division; i++)
-        {  
-            
-            widthStartIndex = i*wfactor;
-            widthEndIndex = widthStartIndex + wfactor;
-            
-            if(i==division -1){
-                widthStartIndex =i*wfactor;
-                widthEndIndex = width;
-            }
-           
-            for(int j=0; j<division; j++)
-            {
-                heightStartIndex =j*hfactor;
-                heightEndIndex = heightStartIndex + hfactor;
-                
-                if(j==division -1){
-                heightStartIndex =j*hfactor;
-                heightEndIndex = height;
-                }
-                
-                Runnable run = new myThread(widthStartIndex, widthEndIndex, heightStartIndex, heightEndIndex);
-                executor.execute(run);
-                
-                
-                
-                
-               
-                
-            }
-        }
+//        for (int i =0; i<division; i++)
+//        {  
+//            
+//            widthStartIndex = i*wfactor;
+//            widthEndIndex = widthStartIndex + wfactor;
+//            
+//            if(i==division -1){
+//                widthStartIndex =i*wfactor;
+//                widthEndIndex = width;
+//            }
+//           
+//            for(int j=0; j<division; j++)
+//            {
+//                heightStartIndex =j*hfactor;
+//                heightEndIndex = heightStartIndex + hfactor;
+//                
+//                if(j==division -1){
+//                heightStartIndex =j*hfactor;
+//                heightEndIndex = height;
+//                }
+//                
+//                Runnable run = new myThread(widthStartIndex, widthEndIndex, heightStartIndex, heightEndIndex);
+//                executor.execute(run);
+//                
+//                
+//                
+//                
+//               
+//                
+//            }
+//        }
         
-        executor.shutdown();
-        try{
-        executor.awaitTermination(20, TimeUnit.SECONDS);
-        }catch (Exception e)
-        {System.out.println(e.getLocalizedMessage());}
+//        executor.shutdown();
+//        try{
+//        executor.awaitTermination(20, TimeUnit.SECONDS);
+//        }catch (Exception e)
+//        {System.out.println(e.getLocalizedMessage());}
         
-        myThread.saveFile();
+//        myThread.saveFile();
         
         
-        final long duration = System.currentTimeMillis() - startTime;
+       
         
         System.out.println("Program duration in mili seconds: "+ duration);
         
