@@ -1,11 +1,15 @@
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -16,22 +20,29 @@ import javax.imageio.ImageIO;
 class ImageProcess {
     public BufferedImage current, redrawn;
     public int[] largeSquare;
-    public int[] smallSquare;
+    public int [][] largeRGB;
+    public int [][] smallRGB;
     public int width, height;
     public int newpixelvalue;
+<<<<<<< HEAD
     Color c;
     int red, green, blue;
     int[] r;
     int []g;
     int []b;
+=======
+    public Color c;
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
     
     public ImageProcess(BufferedImage input){
         current = input;
         width = input.getWidth();
         height = input.getHeight();
         redrawn = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-        smallSquare = new int[4];
-        largeSquare = new int[9];
+        
+        smallRGB = new int[3][4];
+        largeRGB = new int[3][9];
+        
         
     }
     public void saveFile(){
@@ -63,6 +74,7 @@ class ImageProcess {
                 //top left corner
                 if(i==0 &&j==0)
                 { 
+<<<<<<< HEAD
                     c = new Color(current.getRGB(i, i));
                     
                     smallSquare[0] = current.getRGB(i, j);
@@ -70,97 +82,228 @@ class ImageProcess {
                     smallSquare[2] = current.getRGB(i+1, j+1);
                     smallSquare[3] = current.getRGB(i+1, j);
                     newpixelvalue = this.getAverage(smallSquare);
+=======
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //top right corner
                 else if(i==width-1&&j==0)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i-1, j+1);
-                    smallSquare[3] = current.getRGB(i, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //bottom left corner
                 else if (i==0&&j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i, j-1);
-                    smallSquare[2] = current.getRGB(i+1, j-1);
-                    smallSquare[3] = current.getRGB(i+1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //bottom right corner
                 else if (i==width-1&&j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j-1);
-                    smallSquare[2] = current.getRGB(i, j-1);
-                    smallSquare[3] = current.getRGB(i-1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //left column
                 else if(i==0)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i+1, j);
-                    smallSquare[2] = current.getRGB(i, j+1);
-                    smallSquare[3] = current.getRGB(i+1, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //top row
                 else if(j==0)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i-1, j+1);
-                    smallSquare[3] = current.getRGB(i, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //bottom row
                 else if(j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i, j-1);
-                    smallSquare[2] = current.getRGB(i-1, j-1);
-                    smallSquare[3] = current.getRGB(i-1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //right column
                 else if(i==width-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i, j+1);
-                    smallSquare[3] = current.getRGB(i-1, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 else
                 {
-                    largeSquare[0] = current.getRGB(i-1, j-1);
-                    largeSquare[1] = current.getRGB(i, j-1);
-                    largeSquare[2] = current.getRGB(i+1, j-1);
-                    largeSquare[3] = current.getRGB(i-1, j);
-                    largeSquare[4] = current.getRGB(i, j);
-                    largeSquare[5] = current.getRGB(i+1, j);
-                    largeSquare[6] = current.getRGB(i-1, j+1);
-                    largeSquare[7] = current.getRGB(i, j+1);
-                    largeSquare[8] = current.getRGB(i+1, j+1);
+                    c = new Color(current.getRGB(i-1, j-1));
+                    largeRGB[0][0] = c.getRed();
+                    largeRGB[1][0] = c.getGreen();
+                    largeRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    largeRGB[0][1] = c.getRed();
+                    largeRGB[1][1] = c.getGreen();
+                    largeRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j-1));
+                    largeRGB[0][2] = c.getRed();
+                    largeRGB[1][2] = c.getGreen();
+                    largeRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    largeRGB[0][3] = c.getRed();
+                    largeRGB[1][3] = c.getGreen();
+                    largeRGB[2][3] = c.getBlue();
+                    c = new Color(current.getRGB(i, j));
+                    largeRGB[0][4] = c.getRed();
+                    largeRGB[1][4] = c.getGreen();
+                    largeRGB[2][4] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    largeRGB[0][5] = c.getRed();
+                    largeRGB[1][5] = c.getGreen();
+                    largeRGB[2][5] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    largeRGB[0][6] = c.getRed();
+                    largeRGB[1][6] = c.getGreen();
+                    largeRGB[2][6] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    largeRGB[0][7] = c.getRed();
+                    largeRGB[1][7] = c.getGreen();
+                    largeRGB[2][7] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    largeRGB[0][8] = c.getRed();
+                    largeRGB[1][8] = c.getGreen();
+                    largeRGB[2][8] = c.getBlue();
 
 
-                    newpixelvalue = this.getAverage(largeSquare);
+                    newpixelvalue = this.getSAverage(largeRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
             
@@ -172,6 +315,7 @@ class ImageProcess {
         
     }
     
+<<<<<<< HEAD
     public int getAverage(int[] array){
         int size = array.length;
         r = new int[size];
@@ -188,10 +332,34 @@ class ImageProcess {
         int total=0;
         for(int n:array)
             total = total+n;
+=======
+    public int getSAverage(int[][] smallRGB){
+        int color=0;
+        int length = smallRGB[0].length;
+        int red =0 , green =0 , blue= 0;
+        for(int i= 0; i<3; i++){
+            //for each color
+            for(int j=0; j<length; j++){
+                //for each index
+                if(i==0){
+                    red = red+smallRGB[i][j];
+                }
+                else if(i==1){
+                    green = green+smallRGB[i][j];
+                }else{
+                    blue = blue+smallRGB[i][j];
+                }
+                
+            }
+        }
+        red = red/length;
+        green = green/length;
+        blue=blue/length;
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
         
-        total = total/array.length;
+        color = new Color(red,green,blue).getRGB();
         
-        return total;
+        return color;
     }
     
 }
@@ -203,14 +371,25 @@ public class ImageProcessingProject {
 
     
     public static void main (String[] args){
+<<<<<<< HEAD
        
         ImageProcess imageProcess = null;  
+=======
+        long startTime =0;
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
         BufferedImage current = null;
+        
+        ImageProcess imageProcess = null;  
         try
         {
             current = ImageIO.read(new File("old.bmp"));
+<<<<<<< HEAD
              
             
+=======
+            startTime= System.currentTimeMillis();
+            imageProcess = new ImageProcess(current);
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
             
         }catch (Exception e)
         {
@@ -220,6 +399,7 @@ public class ImageProcessingProject {
         imageProcess = new ImageProcess(current);
         
         imageProcess.processFile();
+<<<<<<< HEAD
         final long duration = System.currentTimeMillis() - startTime;
         imageProcess.saveFile();
      //   ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -246,6 +426,32 @@ public class ImageProcessingProject {
 //        Runnable run = new myThread(0, width, 0, height);
 //        executor.execute(run);
       
+=======
+        long duration = System.currentTimeMillis() - startTime;
+        
+        System.out.println("Single threaded Program duration in mili seconds: "+ duration);
+        imageProcess.saveFile();
+        
+        
+        myThread.current = current;
+        
+        startTime= System.currentTimeMillis();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        
+        int height = current.getHeight();
+        int width = current.getWidth();
+       
+        
+        myThread.redrawn = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        int division =2;
+        
+        int hfactor = height/division;
+        int wfactor = width/division;
+        
+            
+        
+        int heightStartIndex, heightEndIndex, widthStartIndex, widthEndIndex;
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
         
 //        for (int i =0; i<division; i++)
 //        {  
@@ -270,6 +476,7 @@ public class ImageProcessingProject {
 //                
 //                Runnable run = new myThread(widthStartIndex, widthEndIndex, heightStartIndex, heightEndIndex);
 //                executor.execute(run);
+<<<<<<< HEAD
 //                
 //                
 //                
@@ -284,29 +491,79 @@ public class ImageProcessingProject {
 //        executor.awaitTermination(20, TimeUnit.SECONDS);
 //        }catch (Exception e)
 //        {System.out.println(e.getLocalizedMessage());}
+=======
+      
+        
+        for (int i =0; i<division; i++)
+        {  
+            
+            widthStartIndex = i*wfactor;
+            widthEndIndex = widthStartIndex + wfactor;
+            
+            if(i==division -1){
+                widthStartIndex =i*wfactor;
+                widthEndIndex = width;
+            }
+           
+            for(int j=0; j<division; j++)
+            {
+                heightStartIndex =j*hfactor;
+                heightEndIndex = heightStartIndex + hfactor;
+                
+                if(j==division -1){
+                heightStartIndex =j*hfactor;
+                heightEndIndex = height;
+                }
+                
+                Runnable run = new myThread(widthStartIndex, widthEndIndex, heightStartIndex, heightEndIndex);
+                executor.execute(run);
+                
+            }
+        }
+        
+        executor.shutdown();
+        
+        try
+        {
+            executor.awaitTermination(20, TimeUnit.SECONDS);
+        }catch (Exception e)
+        {
+            System.out.println(e.getLocalizedMessage());
+        }
+        
+        duration = System.currentTimeMillis() - startTime;
+        
+        System.out.println("Program duration for multithread in mili seconds: "+ duration);
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
         
 //        myThread.saveFile();
         
         
+<<<<<<< HEAD
        
+=======
+>>>>>>> 13972fc45f3c1f2b97a2996ee462f1bbea2aa282
         
-        System.out.println("Program duration in mili seconds: "+ duration);
         
         
     }
 }
-    
-    class myThread implements Runnable{
+class myThread implements Runnable
+{
+    public int count =0;
     public static BufferedImage current,redrawn;
-    public int[] largeSquare;
-    public int[] smallSquare;
+    public int [][] largeRGB;
+    public int [][] smallRGB;
     public int width, height;
     public int newpixelvalue;
     public int wstart, hstart;
+    Color c;
     @Override
     public void run() {
-        processFile();
+        count++;
        
+        processFile();
+        
     }
     
     
@@ -316,9 +573,8 @@ public class ImageProcessingProject {
         this.height = height;
         wstart = startwidth;
         hstart = startheight;
-        
-        smallSquare = new int[4];
-        largeSquare = new int[9];
+        smallRGB = new int[3][4];
+        largeRGB = new int[3][9];
         
     }
     public static void saveFile(){
@@ -349,102 +605,226 @@ public class ImageProcessingProject {
                 //top left corner
                 if(i==wstart &&j==hstart)
                 { 
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i, j+1);
-                    smallSquare[2] = current.getRGB(i+1, j+1);
-                    smallSquare[3] = current.getRGB(i+1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //top right corner
                 else if(i==width-1&&j==hstart)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i-1, j+1);
-                    smallSquare[3] = current.getRGB(i, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //bottom left corner
                 else if (i==wstart&&j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i, j-1);
-                    smallSquare[2] = current.getRGB(i+1, j-1);
-                    smallSquare[3] = current.getRGB(i+1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //bottom right corner
                 else if (i==width-1&&j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j-1);
-                    smallSquare[2] = current.getRGB(i, j-1);
-                    smallSquare[3] = current.getRGB(i-1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //left column
                 else if(i==wstart)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i+1, j);
-                    smallSquare[2] = current.getRGB(i, j+1);
-                    smallSquare[3] = current.getRGB(i+1, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                // top row
                 else if(j==hstart)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i-1, j+1);
-                    smallSquare[3] = current.getRGB(i, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 //bottom row
                 else if(j==height-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i, j-1);
-                    smallSquare[2] = current.getRGB(i-1, j-1);
-                    smallSquare[3] = current.getRGB(i-1, j);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j-1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
                 //right column
                 else if(i==width-1)
                 {
-                    smallSquare[0] = current.getRGB(i, j);
-                    smallSquare[1] = current.getRGB(i-1, j);
-                    smallSquare[2] = current.getRGB(i, j+1);
-                    smallSquare[3] = current.getRGB(i-1, j+1);
-                    newpixelvalue = this.getAverage(smallSquare);
+                    c = new Color(current.getRGB(i, j));
+                    smallRGB[0][0] = c.getRed();
+                    smallRGB[1][0] = c.getGreen();
+                    smallRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    smallRGB[0][1] = c.getRed();
+                    smallRGB[1][1] = c.getGreen();
+                    smallRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    smallRGB[0][2] = c.getRed();
+                    smallRGB[1][2] = c.getGreen();
+                    smallRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    smallRGB[0][3] = c.getRed();
+                    smallRGB[1][3] = c.getGreen();
+                    smallRGB[2][3] = c.getBlue();
+                    newpixelvalue = this.getSAverage(smallRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                     
                 }
                 else
                 {
-                    largeSquare[0] = current.getRGB(i-1, j-1);
-                    largeSquare[1] = current.getRGB(i, j-1);
-                    largeSquare[2] = current.getRGB(i+1, j-1);
-                    largeSquare[3] = current.getRGB(i-1, j);
-                    largeSquare[4] = current.getRGB(i, j);
-                    largeSquare[5] = current.getRGB(i+1, j);
-                    largeSquare[6] = current.getRGB(i-1, j+1);
-                    largeSquare[7] = current.getRGB(i, j+1);
-                    largeSquare[8] = current.getRGB(i+1, j+1);
+                     c = new Color(current.getRGB(i-1, j-1));
+                    largeRGB[0][0] = c.getRed();
+                    largeRGB[1][0] = c.getGreen();
+                    largeRGB[2][0] = c.getBlue();
+                    c = new Color(current.getRGB(i, j-1));
+                    largeRGB[0][1] = c.getRed();
+                    largeRGB[1][1] = c.getGreen();
+                    largeRGB[2][1] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j-1));
+                    largeRGB[0][2] = c.getRed();
+                    largeRGB[1][2] = c.getGreen();
+                    largeRGB[2][2] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j));
+                    largeRGB[0][3] = c.getRed();
+                    largeRGB[1][3] = c.getGreen();
+                    largeRGB[2][3] = c.getBlue();
+                    c = new Color(current.getRGB(i, j));
+                    largeRGB[0][4] = c.getRed();
+                    largeRGB[1][4] = c.getGreen();
+                    largeRGB[2][4] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j));
+                    largeRGB[0][5] = c.getRed();
+                    largeRGB[1][5] = c.getGreen();
+                    largeRGB[2][5] = c.getBlue();
+                    c = new Color(current.getRGB(i-1, j+1));
+                    largeRGB[0][6] = c.getRed();
+                    largeRGB[1][6] = c.getGreen();
+                    largeRGB[2][6] = c.getBlue();
+                    c = new Color(current.getRGB(i, j+1));
+                    largeRGB[0][7] = c.getRed();
+                    largeRGB[1][7] = c.getGreen();
+                    largeRGB[2][7] = c.getBlue();
+                    c = new Color(current.getRGB(i+1, j+1));
+                    largeRGB[0][8] = c.getRed();
+                    largeRGB[1][8] = c.getGreen();
+                    largeRGB[2][8] = c.getBlue();
 
 
-                    newpixelvalue = this.getAverage(largeSquare);
+                    newpixelvalue = this.getSAverage(largeRGB);
                     redrawn.setRGB(i, j, newpixelvalue);
                 }
             
@@ -456,19 +836,39 @@ public class ImageProcessingProject {
         
     }
     
-    public int getAverage(int[] array){
-        int total=0;
-        for(int n:array)
-            total = total+n;
+    public int getSAverage(int[][] smallRGB){
+        int color=0;
+        int length = smallRGB[0].length;
+        int red =0 , green =0 , blue= 0;
+        for(int i= 0; i<3; i++){
+            //for each color
+            for(int j=0; j<length; j++){
+                //for each index
+                if(i==0){
+                    red = red+smallRGB[i][j];
+                }
+                else if(i==1){
+                    green = green+smallRGB[i][j];
+                }else{
+                    blue = blue+smallRGB[i][j];
+                }
+                
+            }
+        }
+        red = red/length;
+        green = green/length;
+        blue=blue/length;
         
-        total = total/array.length;
+        color = new Color(red,green,blue).getRGB();
         
-        return total;
+        return color;
     }
 
     
     
 }
+    
+    
 
       
     
